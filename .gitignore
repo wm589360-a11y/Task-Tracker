@@ -1,0 +1,11 @@
+.env
+vendor/
+node_modules/
+.DS_Store
+*.log
+public/assets/uploads/
+.idea/
+.vscode/
+*.sql
+*.zip
+*.tar.gz

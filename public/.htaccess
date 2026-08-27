@@ -1,0 +1,18 @@
+RewriteEngine On
+RewriteBase /Task-Tracker/public/
+
+# Block access to log files and debug/test scripts
+<FilesMatch "^(debug\.log|test_db\.php|test_http\.php|check_db\.php|hello\.php|create_user\.php|check_structure\.\..php)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# If the request is not for a real file or directory
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Redirect everything to index.php
+RewriteRule ^(.*)$ index.php [QSA,L]
+
+# Prevent directory listing
+Options -Indexes

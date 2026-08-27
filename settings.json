@@ -1,0 +1,16 @@
+{
+    "php.validate.enable": true,
+    "php.executablePath": "C:/xampp/php/php.exe",
+    "intelephense.files.maxSize": 5000000,
+    "files.associations": {
+        ".env": "plaintext"
+    },
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "bmewburn.vscode-intelephense-client",
+    "files.exclude": {
+        "**/.git": true,
+        "**/.DS_Store": true
+    },
+    "liveServer.settings.root": "/public",
+    "liveServer.settings.port": 5500
+}

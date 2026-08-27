@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <!-- Clipboard body -->
+  <rect x="40" y="50" width="120" height="140" rx="12" fill="#e8f0fe" stroke="#4a90d9" stroke-width="3"/>
+  <!-- Clipboard top bar -->
+  <rect x="70" y="38" width="60" height="24" rx="8" fill="#4a90d9"/>
+  <!-- Clip -->
+  <rect x="88" y="33" width="24" height="12" rx="5" fill="#2563eb"/>
+
+  <!-- Checkmark lines -->
+  <line x1="65" y1="95" x2="135" y2="95" stroke="#b0c4de" stroke-width="4" stroke-linecap="round"/>
+  <line x1="65" y1="115" x2="135" y2="115" stroke="#b0c4de" stroke-width="4" stroke-linecap="round"/>
+  <line x1="65" y1="135" x2="110" y2="135" stroke="#b0c4de" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Empty checkboxes -->
+  <rect x="55" y="87" width="4" height="4" rx="1" fill="#4a90d9" opacity="0.4"/>
+  <rect x="55" y="107" width="4" height="4" rx="1" fill="#4a90d9" opacity="0.4"/>
+  <rect x="55" y="127" width="4" height="4" rx="1" fill="#4a90d9" opacity="0.4"/>
+
+  <!-- Magnifying glass for "nothing found" -->
+  <circle cx="148" cy="160" r="18" fill="#f0f4ff" stroke="#4a90d9" stroke-width="3"/>
+  <line x1="160" y1="173" x2="172" y2="185" stroke="#4a90d9" stroke-width="4" stroke-linecap="round"/>
+  <line x1="141" y1="152" x2="155" y2="168" stroke="#9ab5e0" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+</svg>
