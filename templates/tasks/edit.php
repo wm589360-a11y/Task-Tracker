@@ -12,10 +12,10 @@ ob_start();
                 <i class="bi bi-pencil-square text-primary me-2"></i>Edit Task
             </h2>
             <div class="d-flex gap-2">
-                <a href="/Task-Tracker/public/tasks/view/<?php echo $task['id']; ?>" class="btn btn-outline-info btn-sm">
+                <a href="<?= URL_ROOT ?>/tasks/view/<?php echo $task['id']; ?>" class="btn btn-outline-info btn-sm">
                     <i class="bi bi-eye"></i> View Task
                 </a>
-                <a href="/Task-Tracker/public/tasks" class="btn btn-outline-secondary btn-sm">
+                <a href="<?= URL_ROOT ?>/tasks" class="btn btn-outline-secondary btn-sm">
                     <i class="bi bi-arrow-left"></i> Back to Tasks
                 </a>
             </div>
@@ -37,7 +37,7 @@ ob_start();
         <!-- Form Card -->
         <div class="card border-0 shadow-sm">
             <div class="card-body p-4">
-                <form action="/Task-Tracker/public/tasks/edit/<?php echo $task['id']; ?>" method="POST">
+                <form action="<?= URL_ROOT ?>/tasks/edit/<?php echo $task['id']; ?>" method="POST">
 
                     <!-- Title -->
                     <div class="mb-4">
@@ -211,7 +211,7 @@ ob_start();
                         <button type="submit" class="btn btn-primary btn-lg flex-fill">
                             <i class="bi bi-save me-2"></i> Save Changes
                         </button>
-                        <a href="/Task-Tracker/public/tasks/view/<?php echo $task['id']; ?>" class="btn btn-outline-secondary btn-lg px-4">
+                        <a href="<?= URL_ROOT ?>/tasks/view/<?php echo $task['id']; ?>" class="btn btn-outline-secondary btn-lg px-4">
                             Cancel
                         </a>
                     </div>
@@ -227,7 +227,7 @@ ob_start();
                     <h6 class="text-danger mb-1 fw-bold"><i class="bi bi-exclamation-triangle me-1"></i>Danger Zone</h6>
                     <small class="text-muted">Deleting a task is permanent and cannot be undone.</small>
                 </div>
-                <a href="/Task-Tracker/public/tasks/delete/<?php echo $task['id']; ?>"
+                <a href="<?= URL_ROOT ?>/tasks/delete/<?php echo $task['id']; ?>"
                    class="btn btn-outline-danger btn-sm"
                    onclick="return confirm('Are you sure you want to permanently delete this task?');">
                     <i class="bi bi-trash me-1"></i> Delete Task

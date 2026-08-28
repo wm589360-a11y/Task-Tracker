@@ -90,7 +90,7 @@ $typeLabels = [
             <h1 class="h3 fw-bold mb-1"><i class="bi bi-sliders me-2"></i>Custom Fields</h1>
             <p class="mb-0 opacity-75">Define extra data fields that appear on all your tasks.</p>
         </div>
-        <a href="/Task-Tracker/public/custom-fields/create" class="btn btn-light fw-semibold shadow-sm px-4">
+        <a href="<?= URL_ROOT ?>/custom-fields/create" class="btn btn-light fw-semibold shadow-sm px-4">
             <i class="bi bi-plus-lg me-1"></i> New Field
         </a>
     </div>
@@ -115,7 +115,7 @@ $typeLabels = [
     <i class="bi bi-sliders2 display-3 text-muted opacity-40 d-block mb-3"></i>
     <h5 class="fw-semibold text-muted">No custom fields yet</h5>
     <p class="text-muted small mb-4">Create fields like "Client Name", "Story Points", "Risk Level" and they'll appear on all your tasks.</p>
-    <a href="/Task-Tracker/public/custom-fields/create" class="btn btn-primary btn-lg px-5">
+    <a href="<?= URL_ROOT ?>/custom-fields/create" class="btn btn-primary btn-lg px-5">
         <i class="bi bi-plus-lg me-2"></i>Create Your First Field
     </a>
 </div>
@@ -165,10 +165,10 @@ $typeLabels = [
             </div>
             <!-- Actions -->
             <div class="d-flex gap-2 mt-3 pt-3 border-top">
-                <a href="/Task-Tracker/public/custom-fields/edit/<?php echo $field['id']; ?>" class="btn btn-outline-primary btn-sm flex-fill">
+                <a href="<?= URL_ROOT ?>/custom-fields/edit/<?php echo $field['id']; ?>" class="btn btn-outline-primary btn-sm flex-fill">
                     <i class="bi bi-pencil me-1"></i>Edit
                 </a>
-                <a href="/Task-Tracker/public/custom-fields/delete/<?php echo $field['id']; ?>"
+                <a href="<?= URL_ROOT ?>/custom-fields/delete/<?php echo $field['id']; ?>"
                    class="btn btn-outline-danger btn-sm flex-fill"
                    onclick="return confirm('Delete this field and all its saved values?')">
                     <i class="bi bi-trash me-1"></i>Delete
@@ -180,7 +180,7 @@ $typeLabels = [
 
     <!-- Add New card -->
     <div class="col-md-6 col-xl-4">
-        <a href="/Task-Tracker/public/custom-fields/create" class="text-decoration-none">
+        <a href="<?= URL_ROOT ?>/custom-fields/create" class="text-decoration-none">
             <div class="field-card p-3 h-100 d-flex align-items-center justify-content-center"
                  style="border: 2px dashed #d0d7de; background: #fafbff; min-height:140px;">
                 <div class="text-center">

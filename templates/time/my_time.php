@@ -13,7 +13,7 @@
                         <p class="mb-3"><strong>Task:</strong> <?php echo htmlspecialchars($activePunch['task_title']); ?></p>
                     <?php endif; ?>
                     
-                    <form method="POST" action="/Task-Tracker/public/time/punch">
+                    <form method="POST" action="<?= URL_ROOT ?>/time/punch">
                         <input type="hidden" name="action" value="out">
                         <input type="hidden" name="entry_id" value="<?php echo $activePunch['id']; ?>">
                         <button type="submit" class="btn btn-warning btn-lg w-100 fw-bold">
@@ -22,7 +22,7 @@
                     </form>
                 <?php else: ?>
                     <h4 class="text-secondary mb-3">Not Clocked In</h4>
-                    <form method="POST" action="/Task-Tracker/public/time/punch">
+                    <form method="POST" action="<?= URL_ROOT ?>/time/punch">
                         <input type="hidden" name="action" value="in">
                         
                         <div class="mb-3 text-start">
@@ -95,7 +95,7 @@
                                         </td>
                                         <td>
                                             <?php if ($entry['task_title']): ?>
-                                                <a href="/Task-Tracker/public/tasks/view/<?php echo $entry['task_id']; ?>">
+                                                <a href="<?= URL_ROOT ?>/tasks/view/<?php echo $entry['task_id']; ?>">
                                                     <?php echo htmlspecialchars($entry['task_title']); ?>
                                                 </a>
                                             <?php else: ?>

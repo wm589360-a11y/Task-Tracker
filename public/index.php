@@ -4,7 +4,16 @@ ini_set('display_errors', 1);
 session_start();
 
 define('BASE_PATH', dirname(__DIR__));
-define('URL_ROOT', 'http://localhost/Task-Tracker/public');
+
+// Use APP_URL from environment if available, otherwise determine dynamically
+$appUrl = getenv('APP_URL');
+if (!$appUrl) {
+    $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
+    $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+    $baseDir = str_replace($_SERVER['DOCUMENT_ROOT'], '', str_replace('\\', '/', BASE_PATH . '/public'));
+    $appUrl = $protocol . $host . $baseDir;
+}
+define('URL_ROOT', rtrim($appUrl, '/'));
 
 // Simple autoloader
 spl_autoload_register(function ($class) {
@@ -29,8 +38,11 @@ require_once BASE_PATH . '/config/database.php';
 
 // Get route
 $request = $_SERVER['REQUEST_URI'];
-$baseDir = '/Task-Tracker/public';
-$path = str_replace($baseDir, '', $request);
+$basePath = parse_url(URL_ROOT, PHP_URL_PATH) ?: '';
+$path = $request;
+if ($basePath && strpos($path, $basePath) === 0) {
+    $path = substr($path, strlen($basePath));
+}
 $path = parse_url($path, PHP_URL_PATH);
 $path = trim($path, '/');
 $method = $_SERVER['REQUEST_METHOD'];
@@ -69,9 +81,9 @@ try {
     }
     elseif ($route === '') {
         if (SessionHelper::isLoggedIn()) {
-            header('Location: /Task-Tracker/public/dashboard');
+            header('Location: ' . URL_ROOT . '/dashboard');
         } else {
-            header('Location: /Task-Tracker/public/login');
+            header('Location: ' . URL_ROOT . '/login');
         }
         exit();
     }

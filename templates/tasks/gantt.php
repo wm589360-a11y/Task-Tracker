@@ -19,7 +19,7 @@ ob_start();
                 <i class="bi bi-calendar-x display-1 text-muted opacity-50"></i>
                 <h4 class="text-muted mt-3">No tasks found.</h4>
                 <p class="text-muted">Create some tasks to see them on the Gantt chart.</p>
-                <a href="/Task-Tracker/public/tasks/create" class="btn btn-primary mt-2">Create a Task</a>
+                <a href="<?= URL_ROOT ?>/tasks/create" class="btn btn-primary mt-2">Create a Task</a>
             </div>
         <?php else: ?>
             <div class="gantt-container" style="overflow-x: auto;">
@@ -69,7 +69,7 @@ ob_start();
             view_mode: 'Week',
             date_format: 'YYYY-MM-DD',
             on_click: function (task) {
-                window.location.href = '/Task-Tracker/public/tasks/view/' + task.id;
+                window.location.href = APP_URL + '/tasks/view/' + task.id;
             },
             on_date_change: function(task, start, end) {
                 updateTaskOnServer(task.id, start, end, task.progress);
@@ -95,7 +95,7 @@ ob_start();
             formData.append('end', endDate);
             formData.append('progress', progress);
 
-            fetch('/Task-Tracker/public/api/gantt-update', {
+            fetch(APP_URL + '/api/gantt-update', {
                 method: 'POST',
                 body: formData
             })

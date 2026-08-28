@@ -14,7 +14,7 @@ class PortfolioController {
 
     public function __construct() {
         if (!SessionHelper::isLoggedIn()) {
-            header('Location: /Task-Tracker/public/login');
+            header('Location: ' . URL_ROOT . '/login');
             exit();
         }
         $this->projectModel = new Project();
@@ -52,7 +52,7 @@ class PortfolioController {
         $project = $this->projectModel->getById($id);
         if (!$project) {
             $_SESSION['flash_error'] = "Project not found.";
-            header('Location: /Task-Tracker/public/portfolio');
+            header('Location: ' . URL_ROOT . '/portfolio');
             exit();
         }
 
@@ -70,7 +70,7 @@ class PortfolioController {
 
     public function store() {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            header('Location: /Task-Tracker/public/portfolio');
+            header('Location: ' . URL_ROOT . '/portfolio');
             exit();
         }
 
@@ -90,7 +90,7 @@ class PortfolioController {
 
         if (empty($data['name'])) {
             $_SESSION['flash_error'] = "Project name is required.";
-            header('Location: /Task-Tracker/public/portfolio');
+            header('Location: ' . URL_ROOT . '/portfolio');
             exit();
         }
 
@@ -101,7 +101,7 @@ class PortfolioController {
             $_SESSION['flash_error'] = "Failed to create project.";
         }
 
-        header('Location: /Task-Tracker/public/portfolio');
+        header('Location: ' . URL_ROOT . '/portfolio');
         exit();
     }
 
@@ -113,7 +113,7 @@ class PortfolioController {
      */
     public function update($id) {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            header('Location: /Task-Tracker/public/portfolio');
+            header('Location: ' . URL_ROOT . '/portfolio');
             exit();
         }
 
@@ -137,7 +137,7 @@ class PortfolioController {
             $_SESSION['flash_error'] = "Failed to update project.";
         }
 
-        header('Location: /Task-Tracker/public/portfolio');
+        header('Location: ' . URL_ROOT . '/portfolio');
         exit();
     }
 
@@ -154,7 +154,7 @@ class PortfolioController {
             $_SESSION['flash_error'] = "Failed to delete project.";
         }
 
-        header('Location: /Task-Tracker/public/portfolio');
+        header('Location: ' . URL_ROOT . '/portfolio');
         exit();
     }
 }

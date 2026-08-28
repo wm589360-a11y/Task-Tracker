@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function fetchRealtimeUpdates() {
         try {
             setSyncStatus('syncing', 'Syncing...');
-            let url = '/Task-Tracker/public/api/portfolio-stream';
+            let url = APP_URL + '/api/portfolio-stream';
             if (lastTimestamp) {
                 url += '?since=' + encodeURIComponent(lastTimestamp);
             }
@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Quick Health Update handler
     window.quickUpdateHealth = async function(projectId, newHealth) {
         try {
-            const response = await fetch('/Task-Tracker/public/api/portfolio-quick-update', {
+            const response = await fetch(APP_URL + '/api/portfolio-quick-update', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ id: projectId, health: newHealth })

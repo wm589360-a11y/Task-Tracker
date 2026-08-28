@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function () {
             function save() {
                 const newTitle = input.value.trim();
                 if (!newTitle || newTitle === original) { input.replaceWith(el); return; }
-                fetch('/Task-Tracker/public/api/update-title/' + taskId, {
+                fetch(APP_URL + '/api/update-title/' + taskId, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                     body: 'title=' + encodeURIComponent(newTitle)
@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Visual feedback
             select.style.opacity = '0.5';
-            fetch('/Task-Tracker/public/api/update-status/' + taskId, {
+            fetch(APP_URL + '/api/update-status/' + taskId, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: 'status=' + encodeURIComponent(status)

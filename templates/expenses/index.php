@@ -39,7 +39,7 @@ ob_start();
                                 <td class="fw-bold">$<?php echo number_format($expense['amount'], 2); ?></td>
                                 <td>
                                     <?php if ($expense['receipt_path']): ?>
-                                        <a href="/Task-Tracker/public<?php echo $expense['receipt_path']; ?>" target="_blank" class="btn btn-sm btn-outline-info">
+                                        <a href="<?= URL_ROOT ?><?php echo $expense['receipt_path']; ?>" target="_blank" class="btn btn-sm btn-outline-info">
                                             <i class="bi bi-file-earmark-text"></i> View
                                         </a>
                                     <?php else: ?>
@@ -58,7 +58,7 @@ ob_start();
                                 </td>
                                 <td>
                                     <?php if ($expense['status'] === 'pending'): ?>
-                                        <form method="POST" action="/Task-Tracker/public/expenses/delete/<?php echo $expense['id']; ?>" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this expense?');">
+                                        <form method="POST" action="<?= URL_ROOT ?>/expenses/delete/<?php echo $expense['id']; ?>" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this expense?');">
                                             <button type="submit" class="btn btn-sm btn-outline-danger">
                                                 <i class="bi bi-trash"></i>
                                             </button>
@@ -80,7 +80,7 @@ ob_start();
 <div class="modal fade" id="addExpenseModal" tabindex="-1" aria-labelledby="addExpenseModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form method="POST" action="/Task-Tracker/public/expenses/create" enctype="multipart/form-data">
+            <form method="POST" action="<?= URL_ROOT ?>/expenses/create" enctype="multipart/form-data">
                 <div class="modal-header">
                     <h5 class="modal-title" id="addExpenseModalLabel">Add New Expense</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

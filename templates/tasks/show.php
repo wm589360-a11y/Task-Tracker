@@ -4,8 +4,8 @@ ob_start();
 ?>
 
 <div class="mb-4 d-flex justify-content-between align-items-center">
-    <a href="/Task-Tracker/public/tasks" class="btn btn-outline-secondary btn-sm"><i class="bi bi-arrow-left"></i> Back to Tasks</a>
-    <a href="/Task-Tracker/public/tasks/edit/<?php echo $task['id']; ?>" class="btn btn-outline-primary btn-sm"><i class="bi bi-pencil"></i> Edit Task</a>
+    <a href="<?= URL_ROOT ?>/tasks" class="btn btn-outline-secondary btn-sm"><i class="bi bi-arrow-left"></i> Back to Tasks</a>
+    <a href="<?= URL_ROOT ?>/tasks/edit/<?php echo $task['id']; ?>" class="btn btn-outline-primary btn-sm"><i class="bi bi-pencil"></i> Edit Task</a>
 </div>
 
 <!-- Task Header -->
@@ -64,7 +64,7 @@ ob_start();
                 <?php foreach($tags as $tag): ?>
                     <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 rounded-pill px-3 py-1">
                         #<?php echo htmlspecialchars($tag['name']); ?>
-                        <a href="/Task-Tracker/public/tags/remove/<?php echo $task['id']; ?>/<?php echo $tag['id']; ?>"
+                        <a href="<?= URL_ROOT ?>/tags/remove/<?php echo $task['id']; ?>/<?php echo $tag['id']; ?>"
                            class="ms-1 text-danger text-decoration-none" title="Remove tag"
                            onclick="return confirm('Remove this tag?')">×</a>
                     </span>
@@ -74,7 +74,7 @@ ob_start();
                 <?php endif; ?>
 
                 <!-- Inline add tag form -->
-                <form action="/Task-Tracker/public/tags/add/<?php echo $task['id']; ?>" method="POST"
+                <form action="<?= URL_ROOT ?>/tags/add/<?php echo $task['id']; ?>" method="POST"
                       class="d-flex gap-1 ms-2">
                     <input type="text" name="tag_name" class="form-control form-control-sm"
                            placeholder="Add tag…" style="width:130px;" list="tagSuggestions">
@@ -178,7 +178,7 @@ ob_start();
                 $done = $s['status'] === 'Completed';
             ?>
             <li class="list-group-item px-0 d-flex align-items-center gap-3">
-                <a href="/Task-Tracker/public/subtasks/toggle/<?php echo $s['id']; ?>?current=<?php echo urlencode($s['status']); ?>&parent=<?php echo $task['id']; ?>"
+                <a href="<?= URL_ROOT ?>/subtasks/toggle/<?php echo $s['id']; ?>?current=<?php echo urlencode($s['status']); ?>&parent=<?php echo $task['id']; ?>"
                    class="btn btn-sm <?php echo $done ? 'btn-success' : 'btn-outline-secondary'; ?> rounded-circle p-0 d-flex align-items-center justify-content-center"
                    style="width:28px;height:28px;" title="<?php echo $done ? 'Mark Pending' : 'Mark Complete'; ?>">
                     <i class="bi <?php echo $done ? 'bi-check' : 'bi-circle'; ?>"></i>
@@ -186,7 +186,7 @@ ob_start();
                 <span class="flex-fill <?php echo $done ? 'text-decoration-line-through text-muted' : ''; ?>">
                     <?php echo htmlspecialchars($s['title']); ?>
                 </span>
-                <a href="/Task-Tracker/public/subtasks/delete/<?php echo $s['id']; ?>?parent=<?php echo $task['id']; ?>"
+                <a href="<?= URL_ROOT ?>/subtasks/delete/<?php echo $s['id']; ?>?parent=<?php echo $task['id']; ?>"
                    class="btn btn-sm btn-outline-danger rounded-circle p-0 d-flex align-items-center justify-content-center"
                    style="width:24px;height:24px;" title="Delete"
                    onclick="return confirm('Delete this sub-task?')">
@@ -200,7 +200,7 @@ ob_start();
         <?php endif; ?>
 
         <!-- Add sub-task form -->
-        <form action="/Task-Tracker/public/subtasks/add/<?php echo $task['id']; ?>" method="POST"
+        <form action="<?= URL_ROOT ?>/subtasks/add/<?php echo $task['id']; ?>" method="POST"
               class="d-flex gap-2">
             <input type="text" name="subtask_title" class="form-control form-control-sm"
                    placeholder="Add a sub-task…" required>
@@ -248,7 +248,7 @@ ob_start();
                     <?php endif; ?>
                 </div>
 
-                <form action="/Task-Tracker/public/tasks/comment/<?php echo $task['id']; ?>" method="POST">
+                <form action="<?= URL_ROOT ?>/tasks/comment/<?php echo $task['id']; ?>" method="POST">
                     <div class="d-flex gap-2 align-items-start">
                         <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center flex-shrink-0 fw-bold"
                              style="width:38px;height:38px;">
@@ -294,7 +294,7 @@ ob_start();
                         <i class="bi bi-exclamation-triangle-fill me-1"></i> Uploads are temporarily disabled because a document is locked by <strong><?php echo htmlspecialchars($lockedByOtherName); ?></strong>.
                     </div>
                 <?php else: ?>
-                    <form action="/Task-Tracker/public/tasks/attach/<?php echo $task['id']; ?>" method="POST"
+                    <form action="<?= URL_ROOT ?>/tasks/attach/<?php echo $task['id']; ?>" method="POST"
                           enctype="multipart/form-data" class="mb-4">
                     <div class="upload-zone p-4 text-center rounded-3 border border-2 border-primary border-opacity-25 mb-2">
                         <i class="bi bi-cloud-arrow-up fs-2 text-muted mb-2 d-block"></i>
@@ -329,7 +329,7 @@ ob_start();
                         <li class="list-group-item px-0 d-flex align-items-center gap-2">
                             <i class="bi <?php echo $icon; ?> fs-5"></i>
                             <div class="flex-fill overflow-hidden">
-                                <a href="/Task-Tracker/public/<?php echo htmlspecialchars($att['file_path']); ?>"
+                                <a href="<?= URL_ROOT ?>/<?php echo htmlspecialchars($att['file_path']); ?>"
                                    target="_blank" class="fw-semibold text-truncate d-block text-decoration-none"
                                    style="max-width:180px;">
                                     <?php echo htmlspecialchars($att['file_name']); ?>
@@ -348,12 +348,12 @@ ob_start();
                             ?>
                             
                             <div class="d-flex gap-1">
-                                <a href="/Task-Tracker/public/<?php echo htmlspecialchars($att['file_path']); ?>"
+                                <a href="<?= URL_ROOT ?>/<?php echo htmlspecialchars($att['file_path']); ?>"
                                    target="_blank" class="btn btn-sm btn-outline-secondary" title="Download">
                                     <i class="bi bi-download"></i>
                                 </a>
                                 <?php if (!$isLockedByOther): ?>
-                                    <a href="/Task-Tracker/public/attachments/delete/<?php echo $att['id']; ?>"
+                                    <a href="<?= URL_ROOT ?>/attachments/delete/<?php echo $att['id']; ?>"
                                        class="btn btn-sm btn-outline-danger" title="Delete" onclick="return confirm('Delete this attachment?');">
                                         <i class="bi bi-trash"></i>
                                     </a>
@@ -364,11 +364,11 @@ ob_start();
                                 <?php endif; ?>
                                 
                                 <?php if (!$isLocked): ?>
-                                    <form action="/Task-Tracker/public/attachments/lock/<?php echo $att['id']; ?>" method="POST" class="m-0">
+                                    <form action="<?= URL_ROOT ?>/attachments/lock/<?php echo $att['id']; ?>" method="POST" class="m-0">
                                         <button type="submit" class="btn btn-sm btn-outline-warning" title="Lock Document"><i class="bi bi-lock"></i></button>
                                     </form>
                                 <?php elseif ($canUnlock): ?>
-                                    <form action="/Task-Tracker/public/attachments/unlock/<?php echo $att['id']; ?>" method="POST" class="m-0">
+                                    <form action="<?= URL_ROOT ?>/attachments/unlock/<?php echo $att['id']; ?>" method="POST" class="m-0">
                                         <button type="submit" class="btn btn-sm btn-warning" title="Unlock Document"><i class="bi bi-unlock"></i></button>
                                     </form>
                                 <?php else: ?>

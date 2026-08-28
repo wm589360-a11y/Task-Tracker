@@ -96,7 +96,7 @@ class SessionHelper
     {
         if (!self::isLoggedIn()) {
             self::setFlash('error', 'Please login to access this page');
-            header('Location: /Task-Tracker/public/login');
+            header('Location: ' . URL_ROOT . '/login');
             exit();
         }
     }

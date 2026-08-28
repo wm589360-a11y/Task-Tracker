@@ -14,7 +14,7 @@ class AuthController {
 
     public function showRegister() {
         if (SessionHelper::isLoggedIn()) {
-            header('Location: /Task-Tracker/public/dashboard');
+            header('Location: ' . URL_ROOT . '/dashboard');
             exit();
         }
         require_once dirname(__DIR__) . '/../templates/auth/register.php';
@@ -22,7 +22,7 @@ class AuthController {
 
     public function register() {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            header('Location: /Task-Tracker/public/register');
+            header('Location: ' . URL_ROOT . '/register');
             exit();
         }
 
@@ -51,7 +51,7 @@ class AuthController {
 
         if (!empty($errors)) {
             SessionHelper::setFlash('error', implode('<br>', $errors));
-            header('Location: /Task-Tracker/public/register');
+            header('Location: ' . URL_ROOT . '/register');
             exit();
         }
 
@@ -63,17 +63,17 @@ class AuthController {
             SessionHelper::set('user_email', $email);
             SessionHelper::set('user_role', 'user');
             SessionHelper::setFlash('success', 'Registration successful!');
-            header('Location: /Task-Tracker/public/dashboard');
+            header('Location: ' . URL_ROOT . '/dashboard');
         } else {
             SessionHelper::setFlash('error', 'Email already exists');
-            header('Location: /Task-Tracker/public/register');
+            header('Location: ' . URL_ROOT . '/register');
         }
         exit();
     }
 
     public function showLogin() {
         if (SessionHelper::isLoggedIn()) {
-            header('Location: /Task-Tracker/public/dashboard');
+            header('Location: ' . URL_ROOT . '/dashboard');
             exit();
         }
         require_once dirname(__DIR__) . '/../templates/auth/login.php';
@@ -81,7 +81,7 @@ class AuthController {
 
     public function login() {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            header('Location: /Task-Tracker/public/login');
+            header('Location: ' . URL_ROOT . '/login');
             exit();
         }
 
@@ -90,7 +90,7 @@ class AuthController {
 
         if (empty($email) || empty($password)) {
             SessionHelper::setFlash('error', 'Email and password are required');
-            header('Location: /Task-Tracker/public/login');
+            header('Location: ' . URL_ROOT . '/login');
             exit();
         }
 
@@ -102,10 +102,10 @@ class AuthController {
             SessionHelper::set('user_email', $user['email']);
             SessionHelper::set('user_role', $user['role'] ?? 'user');
             SessionHelper::setFlash('success', 'Welcome back, ' . $user['name'] . '!');
-            header('Location: /Task-Tracker/public/dashboard');
+            header('Location: ' . URL_ROOT . '/dashboard');
         } else {
             SessionHelper::setFlash('error', 'Invalid email or password');
-            header('Location: /Task-Tracker/public/login');
+            header('Location: ' . URL_ROOT . '/login');
         }
         exit();
     }
@@ -114,7 +114,7 @@ class AuthController {
         SessionHelper::destroy();
         SessionHelper::start();
         SessionHelper::setFlash('success', 'Logged out successfully');
-        header('Location: /Task-Tracker/public/login');
+        header('Location: ' . URL_ROOT . '/login');
         exit();
     }
 
@@ -128,7 +128,7 @@ class AuthController {
         $email = trim($_POST['email'] ?? '');
         if (empty($name) || empty($email)) {
             SessionHelper::setFlash('error', 'Name and email are required.');
-            header('Location: /Task-Tracker/public/profile'); exit();
+            header('Location: ' . URL_ROOT . '/profile'); exit();
         }
         $updated = $this->userModel->updateProfile(SessionHelper::get('user_id'), $name, $email);
         if ($updated) {
@@ -138,7 +138,7 @@ class AuthController {
         } else {
             SessionHelper::setFlash('error', 'Failed to update profile.');
         }
-        header('Location: /Task-Tracker/public/profile'); exit();
+        header('Location: ' . URL_ROOT . '/profile'); exit();
     }
 
     public function changePassword() {
@@ -147,24 +147,24 @@ class AuthController {
         $confirm = $_POST['confirm_password'] ?? '';
         if (empty($current) || empty($new) || empty($confirm)) {
             SessionHelper::setFlash('error', 'All password fields are required.');
-            header('Location: /Task-Tracker/public/profile'); exit();
+            header('Location: ' . URL_ROOT . '/profile'); exit();
         }
         if ($new !== $confirm) {
             SessionHelper::setFlash('error', 'New passwords do not match.');
-            header('Location: /Task-Tracker/public/profile'); exit();
+            header('Location: ' . URL_ROOT . '/profile'); exit();
         }
         if (strlen($new) < 6) {
             SessionHelper::setFlash('error', 'Password must be at least 6 characters.');
-            header('Location: /Task-Tracker/public/profile'); exit();
+            header('Location: ' . URL_ROOT . '/profile'); exit();
         }
         $user = $this->userModel->findByEmail(SessionHelper::get('user_email'));
         if (!$user || !password_verify($current, $user['password'])) {
             SessionHelper::setFlash('error', 'Current password is incorrect.');
-            header('Location: /Task-Tracker/public/profile'); exit();
+            header('Location: ' . URL_ROOT . '/profile'); exit();
         }
         $this->userModel->changePassword(SessionHelper::get('user_id'), $new);
         SessionHelper::setFlash('success', 'Password changed successfully!');
-        header('Location: /Task-Tracker/public/profile'); exit();
+        header('Location: ' . URL_ROOT . '/profile'); exit();
     }
 }
 ?>

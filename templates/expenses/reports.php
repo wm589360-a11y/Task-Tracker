@@ -11,7 +11,7 @@ foreach ($reportData as $data) {
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h2><i class="bi bi-pie-chart text-primary"></i> Expense Reports</h2>
     
-    <form class="d-flex gap-2 align-items-end" method="GET" action="/Task-Tracker/public/expenses/reports">
+    <form class="d-flex gap-2 align-items-end" method="GET" action="<?= URL_ROOT ?>/expenses/reports">
         <div>
             <label class="form-label mb-0"><small>Start Date</small></label>
             <input type="date" class="form-control form-control-sm" name="start_date" value="<?php echo htmlspecialchars($startDate); ?>">

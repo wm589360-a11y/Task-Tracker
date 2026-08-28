@@ -9,7 +9,7 @@ class ExpenseController {
 
     public function __construct() {
         if (!SessionHelper::isLoggedIn()) {
-            header('Location: /Task-Tracker/public/login');
+            header('Location: ' . URL_ROOT . '/login');
             exit();
         }
         $this->expenseModel = new Expense();
@@ -58,7 +58,7 @@ class ExpenseController {
                 $_SESSION['success'] = "Expense submitted successfully.";
             }
             
-            header('Location: /Task-Tracker/public/expenses');
+            header('Location: ' . URL_ROOT . '/expenses');
             exit();
         }
     }
@@ -74,14 +74,14 @@ class ExpenseController {
             $_SESSION['error'] = "You cannot delete this expense.";
         }
         
-        header('Location: /Task-Tracker/public/expenses');
+        header('Location: ' . URL_ROOT . '/expenses');
         exit();
     }
 
     public function approvals() {
         if ($_SESSION['user_role'] !== 'admin') {
             $_SESSION['error'] = "Unauthorized access.";
-            header('Location: /Task-Tracker/public/dashboard');
+            header('Location: ' . URL_ROOT . '/dashboard');
             exit();
         }
         
@@ -96,25 +96,25 @@ class ExpenseController {
 
     public function approve($id) {
         if ($_SESSION['user_role'] !== 'admin') {
-            header('Location: /Task-Tracker/public/dashboard');
+            header('Location: ' . URL_ROOT . '/dashboard');
             exit();
         }
         
         $this->expenseModel->updateStatus($id, 'approved');
         $_SESSION['success'] = "Expense approved.";
-        header('Location: /Task-Tracker/public/expenses/approvals');
+        header('Location: ' . URL_ROOT . '/expenses/approvals');
         exit();
     }
 
     public function reject($id) {
         if ($_SESSION['user_role'] !== 'admin') {
-            header('Location: /Task-Tracker/public/dashboard');
+            header('Location: ' . URL_ROOT . '/dashboard');
             exit();
         }
         
         $this->expenseModel->updateStatus($id, 'rejected');
         $_SESSION['success'] = "Expense rejected.";
-        header('Location: /Task-Tracker/public/expenses/approvals');
+        header('Location: ' . URL_ROOT . '/expenses/approvals');
         exit();
     }
 

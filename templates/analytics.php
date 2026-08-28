@@ -21,7 +21,7 @@ $rate       = $stats['completion_rate'] ?? 0;
 
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h2 class="h3 mb-0"><i class="bi bi-bar-chart-line text-primary me-2"></i>Analytics Dashboard</h2>
-    <a href="/Task-Tracker/public/tasks" class="btn btn-outline-primary btn-sm">
+    <a href="<?= URL_ROOT ?>/tasks" class="btn btn-outline-primary btn-sm">
         <i class="bi bi-list-check me-1"></i>View Tasks
     </a>
 </div>

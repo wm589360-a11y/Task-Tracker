@@ -30,7 +30,7 @@ class CustomFieldController {
         $label = trim($_POST['label'] ?? '');
         if (empty($label)) {
             SessionHelper::setFlash('error', 'Field label is required.');
-            header('Location: /Task-Tracker/public/custom-fields/create');
+            header('Location: ' . URL_ROOT . '/custom-fields/create');
             exit();
         }
 
@@ -46,7 +46,7 @@ class CustomFieldController {
         ]);
 
         SessionHelper::setFlash('success', 'Custom field created successfully.');
-        header('Location: /Task-Tracker/public/custom-fields');
+        header('Location: ' . URL_ROOT . '/custom-fields');
         exit();
     }
 
@@ -55,7 +55,7 @@ class CustomFieldController {
         $field = $this->model->getFieldById($id, $this->userId());
         if (!$field) {
             SessionHelper::setFlash('error', 'Field not found.');
-            header('Location: /Task-Tracker/public/custom-fields');
+            header('Location: ' . URL_ROOT . '/custom-fields');
             exit();
         }
         // Decode options back to a comma-separated string for the form
@@ -71,7 +71,7 @@ class CustomFieldController {
         $label = trim($_POST['label'] ?? '');
         if (empty($label)) {
             SessionHelper::setFlash('error', 'Field label is required.');
-            header("Location: /Task-Tracker/public/custom-fields/edit/$id");
+            header("Location: " . URL_ROOT . "/custom-fields/edit/$id");
             exit();
         }
 
@@ -87,7 +87,7 @@ class CustomFieldController {
         ]);
 
         SessionHelper::setFlash('success', 'Custom field updated successfully.');
-        header('Location: /Task-Tracker/public/custom-fields');
+        header('Location: ' . URL_ROOT . '/custom-fields');
         exit();
     }
 
@@ -95,7 +95,7 @@ class CustomFieldController {
     public function delete($id) {
         $this->model->deleteField($id, $this->userId());
         SessionHelper::setFlash('success', 'Custom field deleted.');
-        header('Location: /Task-Tracker/public/custom-fields');
+        header('Location: ' . URL_ROOT . '/custom-fields');
         exit();
     }
 

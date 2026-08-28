@@ -69,7 +69,7 @@ $groupLabel     = $reportResult['group_label'] ?? 'Group';
             <button type="button" class="btn btn-outline-light btn-sm fw-semibold" data-bs-toggle="modal" data-bs-target="#saveReportModal">
                 <i class="bi bi-bookmark-plus me-1"></i> Save Template
             </button>
-            <a href="/Task-Tracker/public/reports/export?<?php echo http_build_query($_GET); ?>" class="btn btn-success btn-sm fw-semibold shadow-sm">
+            <a href="<?= URL_ROOT ?>/reports/export?<?php echo http_build_query($_GET); ?>" class="btn btn-success btn-sm fw-semibold shadow-sm">
                 <i class="bi bi-file-earmark-spreadsheet me-1"></i> Export CSV
             </a>
         </div>
@@ -84,7 +84,7 @@ $groupLabel     = $reportResult['group_label'] ?? 'Group';
         </h5>
     </div>
     <div class="card-body px-4 pt-0 pb-4">
-        <form method="GET" action="/Task-Tracker/public/reports" id="reportFilterForm">
+        <form method="GET" action="<?= URL_ROOT ?>/reports" id="reportFilterForm">
             <div class="row g-3">
                 <!-- Entity Selector -->
                 <div class="col-md-3">
@@ -177,7 +177,7 @@ $groupLabel     = $reportResult['group_label'] ?? 'Group';
 
                 <!-- Submit Buttons -->
                 <div class="col-12 d-flex gap-2 justify-content-end mt-3">
-                    <a href="/Task-Tracker/public/reports" class="btn btn-outline-secondary px-4">Reset</a>
+                    <a href="<?= URL_ROOT ?>/reports" class="btn btn-outline-secondary px-4">Reset</a>
                     <button type="submit" class="btn btn-primary px-5 fw-bold shadow-sm">
                         <i class="bi bi-play-fill me-1"></i> Run Aggregated Report
                     </button>
@@ -406,10 +406,10 @@ $groupLabel     = $reportResult['group_label'] ?? 'Group';
                                 </div>
                             </div>
                             <div class="d-flex gap-2 mt-3 pt-2 border-top">
-                                <a href="/Task-Tracker/public/reports?load=<?php echo $sr['id']; ?>" class="btn btn-outline-primary btn-sm flex-fill fw-semibold">
+                                <a href="<?= URL_ROOT ?>/reports?load=<?php echo $sr['id']; ?>" class="btn btn-outline-primary btn-sm flex-fill fw-semibold">
                                     <i class="bi bi-play-circle me-1"></i> Run
                                 </a>
-                                <a href="/Task-Tracker/public/reports/delete/<?php echo $sr['id']; ?>" class="btn btn-outline-danger btn-sm" onclick="return confirm('Delete this saved report template?')">
+                                <a href="<?= URL_ROOT ?>/reports/delete/<?php echo $sr['id']; ?>" class="btn btn-outline-danger btn-sm" onclick="return confirm('Delete this saved report template?')">
                                     <i class="bi bi-trash"></i>
                                 </a>
                             </div>
@@ -429,7 +429,7 @@ $groupLabel     = $reportResult['group_label'] ?? 'Group';
                 <h5 class="modal-title fw-bold"><i class="bi bi-bookmark-plus text-primary me-2"></i>Save Report Template</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <form action="/Task-Tracker/public/reports/save" method="POST">
+            <form action="<?= URL_ROOT ?>/reports/save" method="POST">
                 <div class="modal-body py-3">
                     <input type="hidden" name="entity" value="<?php echo htmlspecialchars($currentEntity); ?>">
                     <input type="hidden" name="group_by" value="<?php echo htmlspecialchars($currentGroupBy); ?>">

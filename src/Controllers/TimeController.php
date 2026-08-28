@@ -38,7 +38,7 @@ class TimeController {
             }
         }
         
-        $redirect = $_SERVER['HTTP_REFERER'] ?? '/Task-Tracker/public/time/my-time';
+        $redirect = $_SERVER['HTTP_REFERER'] ?? URL_ROOT . '/time/my-time';
         header("Location: $redirect");
         exit;
     }
@@ -64,7 +64,7 @@ class TimeController {
     private function requireAdmin() {
         if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'admin') {
             $_SESSION['flash_error'] = "You do not have permission to access this page.";
-            header("Location: /Task-Tracker/public/dashboard");
+            header("Location: " . URL_ROOT . "/dashboard");
             exit;
         }
     }
@@ -90,7 +90,7 @@ class TimeController {
         $this->requireAdmin();
         $this->timeModel->updateStatus($id, 'approved');
         $_SESSION['flash_success'] = "Time entry approved.";
-        header("Location: /Task-Tracker/public/time/timesheets");
+        header("Location: " . URL_ROOT . "/time/timesheets");
         exit;
     }
 
@@ -101,7 +101,7 @@ class TimeController {
         $this->requireAdmin();
         $this->timeModel->updateStatus($id, 'rejected');
         $_SESSION['flash_success'] = "Time entry rejected.";
-        header("Location: /Task-Tracker/public/time/timesheets");
+        header("Location: " . URL_ROOT . "/time/timesheets");
         exit;
     }
 

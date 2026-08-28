@@ -13,17 +13,17 @@ $filters = [
         <span class="badge bg-secondary ms-2"><?php echo count($tasks); ?></span>
     </h2>
     <div class="d-flex gap-2">
-        <a href="/Task-Tracker/public/tasks/export" class="btn btn-success shadow-sm">
+        <a href="<?= URL_ROOT ?>/tasks/export" class="btn btn-success shadow-sm">
             <i class="bi bi-file-earmark-spreadsheet"></i> Export CSV
         </a>
-        <a href="/Task-Tracker/public/tasks/create" class="btn btn-primary shadow-sm">
+        <a href="<?= URL_ROOT ?>/tasks/create" class="btn btn-primary shadow-sm">
             <i class="bi bi-plus-lg"></i> New Task
         </a>
     </div>
 </div>
 
 <!-- Search & Filter Bar -->
-<form method="GET" action="/Task-Tracker/public/tasks" class="card border-0 shadow-sm mb-4">
+<form method="GET" action="<?= URL_ROOT ?>/tasks" class="card border-0 shadow-sm mb-4">
     <div class="card-body py-3">
         <div class="row g-3 align-items-end">
             <div class="col-md-5">
@@ -53,7 +53,7 @@ $filters = [
             </div>
             <div class="col-md-3 d-flex gap-2">
                 <button type="submit" class="btn btn-primary flex-fill"><i class="bi bi-funnel"></i> Filter</button>
-                <a href="/Task-Tracker/public/tasks" class="btn btn-outline-secondary flex-fill"><i class="bi bi-x-lg"></i> Clear</a>
+                <a href="<?= URL_ROOT ?>/tasks" class="btn btn-outline-secondary flex-fill"><i class="bi bi-x-lg"></i> Clear</a>
             </div>
         </div>
     </div>
@@ -63,7 +63,7 @@ $filters = [
     <div class="alert alert-info alert-sm py-2 d-flex align-items-center gap-2 mb-3">
         <i class="bi bi-info-circle-fill"></i>
         Showing <strong><?php echo count($tasks); ?></strong> result(s) for your filter.
-        <a href="/Task-Tracker/public/tasks" class="ms-auto btn btn-sm btn-outline-info">Clear Filters</a>
+        <a href="<?= URL_ROOT ?>/tasks" class="ms-auto btn btn-sm btn-outline-info">Clear Filters</a>
     </div>
 <?php endif; ?>
 
@@ -74,7 +74,7 @@ $filters = [
             <div class="text-center py-5">
                 <i class="bi bi-inbox display-1 text-muted opacity-50"></i>
                 <h4 class="text-muted mt-3">No tasks found.</h4>
-                <a href="/Task-Tracker/public/tasks/create" class="btn btn-primary mt-2">Create a Task</a>
+                <a href="<?= URL_ROOT ?>/tasks/create" class="btn btn-primary mt-2">Create a Task</a>
             </div>
         <?php else: ?>
             <div class="table-responsive">
@@ -140,9 +140,9 @@ $filters = [
                                 </td>
                                 <td class="pe-4 text-end">
                                     <div class="btn-group shadow-sm">
-                                        <a href="/Task-Tracker/public/tasks/view/<?php echo $task['id']; ?>" class="btn btn-sm btn-outline-info" title="View"><i class="bi bi-eye"></i></a>
-                                        <a href="/Task-Tracker/public/tasks/edit/<?php echo $task['id']; ?>" class="btn btn-sm btn-outline-primary" title="Edit"><i class="bi bi-pencil"></i></a>
-                                        <a href="/Task-Tracker/public/tasks/delete/<?php echo $task['id']; ?>" class="btn btn-sm btn-outline-danger" title="Delete" onclick="return confirm('Delete this task?');"><i class="bi bi-trash"></i></a>
+                                        <a href="<?= URL_ROOT ?>/tasks/view/<?php echo $task['id']; ?>" class="btn btn-sm btn-outline-info" title="View"><i class="bi bi-eye"></i></a>
+                                        <a href="<?= URL_ROOT ?>/tasks/edit/<?php echo $task['id']; ?>" class="btn btn-sm btn-outline-primary" title="Edit"><i class="bi bi-pencil"></i></a>
+                                        <a href="<?= URL_ROOT ?>/tasks/delete/<?php echo $task['id']; ?>" class="btn btn-sm btn-outline-danger" title="Delete" onclick="return confirm('Delete this task?');"><i class="bi bi-trash"></i></a>
                                     </div>
                                 </td>
                             </tr>

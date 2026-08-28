@@ -3,7 +3,7 @@ $pageTitle = 'Create Custom Field - Advanced Task Tracker';
 $isEdit     = false;
 $field      = [];
 $optionsRaw = '';
-$formAction = '/Task-Tracker/public/custom-fields/create';
+$formAction = URL_ROOT . '/custom-fields/create';
 ob_start();
 include __DIR__ . '/_form.php';
 $content = ob_get_clean();

@@ -7,7 +7,7 @@ ob_start();
     <div class="col-12">
         <div class="d-flex justify-content-between align-items-center">
             <h2 class="h3 mb-0 text-gray-800">Welcome back, <?php echo htmlspecialchars(SessionHelper::get('user_name', 'User')); ?>! 👋</h2>
-            <a href="/Task-Tracker/public/tasks/create" class="btn btn-primary shadow-sm">
+            <a href="<?= URL_ROOT ?>/tasks/create" class="btn btn-primary shadow-sm">
                 <i class="bi bi-plus-lg"></i> Create New Task
             </a>
         </div>
@@ -106,19 +106,19 @@ ob_start();
         <div class="card shadow-sm border-0">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between bg-white border-bottom-0">
                 <h6 class="m-0 font-weight-bold text-primary">Recent Tasks</h6>
-                <a href="/Task-Tracker/public/tasks" class="btn btn-sm btn-outline-primary">View All</a>
+                <a href="<?= URL_ROOT ?>/tasks" class="btn btn-sm btn-outline-primary">View All</a>
             </div>
             <div class="card-body p-0">
                 <?php if (empty($recentTasks)): ?>
                     <div class="text-center py-5">
-                        <img src="/Task-Tracker/public/assets/img/empty-tasks.svg" alt="No tasks" class="img-fluid mb-3" style="max-height: 150px; opacity: 0.5;">
+                        <img src="<?= URL_ROOT ?>/assets/img/empty-tasks.svg" alt="No tasks" class="img-fluid mb-3" style="max-height: 150px; opacity: 0.5;">
                         <p class="text-muted">No tasks found. Time to create your first one!</p>
-                        <a href="/Task-Tracker/public/tasks/create" class="btn btn-primary mt-2">Create Task</a>
+                        <a href="<?= URL_ROOT ?>/tasks/create" class="btn btn-primary mt-2">Create Task</a>
                     </div>
                 <?php else: ?>
                     <div class="list-group list-group-flush rounded-bottom">
                         <?php foreach ($recentTasks as $task): ?>
-                            <a href="/Task-Tracker/public/tasks/view/<?php echo $task['id']; ?>" class="list-group-item list-group-item-action py-3">
+                            <a href="<?= URL_ROOT ?>/tasks/view/<?php echo $task['id']; ?>" class="list-group-item list-group-item-action py-3">
                                 <div class="d-flex w-100 justify-content-between align-items-center mb-1">
                                     <h5 class="mb-1 text-truncate" style="max-width: 70%;"><?php echo htmlspecialchars($task['title']); ?></h5>
                                     <?php

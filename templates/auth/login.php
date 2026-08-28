@@ -10,7 +10,7 @@ ob_start();
                     <h4 class="mb-0"><i class="bi bi-box-arrow-in-right"></i> Login</h4>
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="/Task-Tracker/public/login">
+                    <form method="POST" action="<?= URL_ROOT ?>/login">
                         <div class="mb-3">
                             <label for="email" class="form-label">Email Address</label>
                             <input type="email" class="form-control" id="email" name="email"
@@ -29,7 +29,7 @@ ob_start();
                     </form>
                 </div>
                 <div class="card-footer text-center">
-                    Don't have an account? <a href="/Task-Tracker/public/register">Register here</a>
+                    Don't have an account? <a href="<?= URL_ROOT ?>/register">Register here</a>
                 </div>
             </div>
         </div>

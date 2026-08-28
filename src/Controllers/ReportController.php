@@ -86,14 +86,14 @@ class ReportController {
     public function save() {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             SessionHelper::setFlash('error', 'Invalid request method.');
-            header('Location: /Task-Tracker/public/reports');
+            header('Location: ' . URL_ROOT . '/reports');
             exit();
         }
 
         $title = trim($_POST['title'] ?? '');
         if (empty($title)) {
             SessionHelper::setFlash('error', 'Report title is required.');
-            header('Location: /Task-Tracker/public/reports');
+            header('Location: ' . URL_ROOT . '/reports');
             exit();
         }
 
@@ -122,7 +122,7 @@ class ReportController {
             SessionHelper::setFlash('error', 'Failed to save report template.');
         }
 
-        header('Location: /Task-Tracker/public/reports?load=' . $reportId);
+        header('Location: ' . URL_ROOT . '/reports?load=' . $reportId);
         exit();
     }
 
@@ -175,7 +175,7 @@ class ReportController {
         } else {
             SessionHelper::setFlash('error', 'Failed to delete report.');
         }
-        header('Location: /Task-Tracker/public/reports');
+        header('Location: ' . URL_ROOT . '/reports');
         exit();
     }
 }

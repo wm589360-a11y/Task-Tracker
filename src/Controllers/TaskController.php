@@ -72,7 +72,7 @@ class TaskController {
         $task        = $this->taskModel->getTaskById($id, $userId);
         if (!$task) {
             SessionHelper::setFlash('error', 'Task not found.');
-            header('Location: /Task-Tracker/public/tasks');
+            header('Location: ' . URL_ROOT . '/tasks');
             exit();
         }
         $comments          = $this->taskModel->getComments($id);
@@ -96,7 +96,7 @@ class TaskController {
             $this->taskModel->addComment($taskId, SessionHelper::get('user_id'), $comment);
             SessionHelper::setFlash('success', 'Comment added.');
         }
-        header("Location: /Task-Tracker/public/tasks/view/$taskId");
+        header("Location: " . URL_ROOT . "/tasks/view/$taskId");
         exit();
     }
 
@@ -110,14 +110,14 @@ class TaskController {
         foreach ($attachments as $att) {
             if (!empty($att['locked_by']) && $att['locked_by'] != $userId) {
                 SessionHelper::setFlash('error', 'Cannot upload: A document is currently locked by ' . htmlspecialchars($att['locked_by_name']));
-                header("Location: /Task-Tracker/public/tasks/view/$taskId");
+                header("Location: " . URL_ROOT . "/tasks/view/$taskId");
                 exit();
             }
         }
 
         if (!isset($_FILES['attachment']) || $_FILES['attachment']['error'] !== UPLOAD_ERR_OK) {
             SessionHelper::setFlash('error', 'File upload failed.');
-            header("Location: /Task-Tracker/public/tasks/view/$taskId");
+            header("Location: " . URL_ROOT . "/tasks/view/$taskId");
             exit();
         }
         $file     = $_FILES['attachment'];
@@ -125,7 +125,7 @@ class TaskController {
         $ext      = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
         if (!in_array($ext, $allowed) || $file['size'] > 5 * 1024 * 1024) {
             SessionHelper::setFlash('error', 'Invalid file type or file too large (max 5MB).');
-            header("Location: /Task-Tracker/public/tasks/view/$taskId");
+            header("Location: " . URL_ROOT . "/tasks/view/$taskId");
             exit();
         }
         $uploadDir = dirname(__DIR__) . '/../public/assets/uploads/';
@@ -134,7 +134,7 @@ class TaskController {
         move_uploaded_file($file['tmp_name'], $uploadDir . $fileName);
         $this->taskModel->addAttachment($taskId, SessionHelper::get('user_id'), $file['name'], 'assets/uploads/' . $fileName, $file['size']);
         SessionHelper::setFlash('success', 'File uploaded successfully.');
-        header("Location: /Task-Tracker/public/tasks/view/$taskId");
+        header("Location: " . URL_ROOT . "/tasks/view/$taskId");
         exit();
     }
     /**
@@ -144,7 +144,7 @@ class TaskController {
         $attachment = $this->taskModel->getAttachmentById($attachmentId);
         if (!$attachment) {
             SessionHelper::setFlash('error', 'Attachment not found.');
-            $referer = $_SERVER['HTTP_REFERER'] ?? '/Task-Tracker/public/tasks';
+            $referer = $_SERVER['HTTP_REFERER'] ?? URL_ROOT . '/tasks';
             header("Location: $referer");
             exit();
         }
@@ -155,7 +155,7 @@ class TaskController {
             $this->taskModel->lockAttachment($attachmentId, SessionHelper::get('user_id'));
             SessionHelper::setFlash('success', 'Document locked successfully.');
         }
-        header("Location: /Task-Tracker/public/tasks/view/" . $attachment['task_id']);
+        header("Location: " . URL_ROOT . "/tasks/view/" . $attachment['task_id']);
         exit();
     }
 
@@ -166,7 +166,7 @@ class TaskController {
         $attachment = $this->taskModel->getAttachmentById($attachmentId);
         if (!$attachment) {
             SessionHelper::setFlash('error', 'Attachment not found.');
-            $referer = $_SERVER['HTTP_REFERER'] ?? '/Task-Tracker/public/tasks';
+            $referer = $_SERVER['HTTP_REFERER'] ?? URL_ROOT . '/tasks';
             header("Location: $referer");
             exit();
         }
@@ -180,7 +180,7 @@ class TaskController {
             $this->taskModel->unlockAttachment($attachmentId);
             SessionHelper::setFlash('success', 'Document unlocked successfully.');
         }
-        header("Location: /Task-Tracker/public/tasks/view/" . $attachment['task_id']);
+        header("Location: " . URL_ROOT . "/tasks/view/" . $attachment['task_id']);
         exit();
     }
 
@@ -191,7 +191,7 @@ class TaskController {
         $attachment = $this->taskModel->getAttachmentById($attachmentId);
         if (!$attachment) {
             SessionHelper::setFlash('error', 'Attachment not found.');
-            $referer = $_SERVER['HTTP_REFERER'] ?? '/Task-Tracker/public/tasks';
+            $referer = $_SERVER['HTTP_REFERER'] ?? URL_ROOT . '/tasks';
             header("Location: $referer");
             exit();
         }
@@ -207,7 +207,7 @@ class TaskController {
             $this->taskModel->deleteAttachment($attachmentId);
             SessionHelper::setFlash('success', 'Attachment deleted successfully.');
         }
-        header("Location: /Task-Tracker/public/tasks/view/" . $attachment['task_id']);
+        header("Location: " . URL_ROOT . "/tasks/view/" . $attachment['task_id']);
         exit();
     }
 
@@ -225,7 +225,7 @@ class TaskController {
 
         if (empty($title)) {
             SessionHelper::setFlash('error', 'Task title is required');
-            header('Location: /Task-Tracker/public/tasks/create');
+            header('Location: ' . URL_ROOT . '/tasks/create');
             exit();
         }
 
@@ -234,7 +234,7 @@ class TaskController {
         $cfErrors = $this->customFieldModel->validateValues($customFields, $_POST);
         if (!empty($cfErrors)) {
             SessionHelper::setFlash('error', implode('<br>', $cfErrors));
-            header('Location: /Task-Tracker/public/tasks/create');
+            header('Location: ' . URL_ROOT . '/tasks/create');
             exit();
         }
 
@@ -256,10 +256,10 @@ class TaskController {
             // Save custom field values
             $this->customFieldModel->saveValues($taskId, $customFields, $_POST);
             SessionHelper::setFlash('success', 'Task created successfully');
-            header('Location: /Task-Tracker/public/dashboard');
+            header('Location: ' . URL_ROOT . '/dashboard');
         } else {
             SessionHelper::setFlash('error', 'Failed to create task');
-            header('Location: /Task-Tracker/public/tasks/create');
+            header('Location: ' . URL_ROOT . '/tasks/create');
         }
         exit();
     }
@@ -273,7 +273,7 @@ class TaskController {
         $task = $this->taskModel->getTaskById($id, $userId);
         if (!$task) {
             SessionHelper::setFlash('error', 'Task not found.');
-            header('Location: /Task-Tracker/public/tasks');
+            header('Location: ' . URL_ROOT . '/tasks');
             exit();
         }
         $categories        = $this->categoryModel->getAll($userId);
@@ -291,7 +291,7 @@ class TaskController {
         $title  = trim($_POST['title'] ?? '');
         if (empty($title)) {
             SessionHelper::setFlash('error', 'Task title is required.');
-            header("Location: /Task-Tracker/public/tasks/edit/$id");
+            header("Location: " . URL_ROOT . "/tasks/edit/$id");
             exit();
         }
 
@@ -300,7 +300,7 @@ class TaskController {
         $cfErrors = $this->customFieldModel->validateValues($customFields, $_POST);
         if (!empty($cfErrors)) {
             SessionHelper::setFlash('error', implode('<br>', $cfErrors));
-            header("Location: /Task-Tracker/public/tasks/edit/$id");
+            header("Location: " . URL_ROOT . "/tasks/edit/$id");
             exit();
         }
 
@@ -322,10 +322,10 @@ class TaskController {
             // Save custom field values
             $this->customFieldModel->saveValues($id, $customFields, $_POST);
             SessionHelper::setFlash('success', 'Task updated successfully!');
-            header("Location: /Task-Tracker/public/tasks/view/$id");
+            header("Location: " . URL_ROOT . "/tasks/view/$id");
         } else {
             SessionHelper::setFlash('error', 'Failed to update task.');
-            header("Location: /Task-Tracker/public/tasks/edit/$id");
+            header("Location: " . URL_ROOT . "/tasks/edit/$id");
         }
         exit();
     }
@@ -340,7 +340,7 @@ class TaskController {
         } else {
             SessionHelper::setFlash('error', 'Failed to delete task or task not found.');
         }
-        header('Location: /Task-Tracker/public/tasks');
+        header('Location: ' . URL_ROOT . '/tasks');
         exit();
     }
 
@@ -359,7 +359,7 @@ class TaskController {
         }
         
         // Redirect back to referring page or tasks list
-        $referer = $_SERVER['HTTP_REFERER'] ?? '/Task-Tracker/public/tasks';
+        $referer = $_SERVER['HTTP_REFERER'] ?? URL_ROOT . '/tasks';
         header("Location: $referer");
         exit();
     }
@@ -392,7 +392,7 @@ class TaskController {
             $this->taskModel->addTagToTask($taskId, $tagName);
             SessionHelper::setFlash('success', 'Tag added.');
         }
-        header("Location: /Task-Tracker/public/tasks/view/$taskId"); exit();
+        header("Location: " . URL_ROOT . "/tasks/view/$taskId"); exit();
     }
 
     /**
@@ -402,7 +402,7 @@ class TaskController {
     public function removeTag($taskId, $tagId) {
         $this->taskModel->removeTagFromTask($tagId, $taskId);
         SessionHelper::setFlash('success', 'Tag removed.');
-        header("Location: /Task-Tracker/public/tasks/view/$taskId"); exit();
+        header("Location: " . URL_ROOT . "/tasks/view/$taskId"); exit();
     }
 
     // ─── Inline Edit API ─────────────────────────────────────────────
@@ -447,7 +447,7 @@ class TaskController {
             $this->taskModel->createSubtask($parentId, SessionHelper::get('user_id'), $title);
             SessionHelper::setFlash('success', 'Sub-task added.');
         }
-        header("Location: /Task-Tracker/public/tasks/view/$parentId"); exit();
+        header("Location: " . URL_ROOT . "/tasks/view/$parentId"); exit();
     }
 
     /**
@@ -458,7 +458,7 @@ class TaskController {
         $newStatus = ($currentStatus === 'Completed') ? 'Pending' : 'Completed';
         $this->taskModel->updateSubtaskStatus($subtaskId, SessionHelper::get('user_id'), $newStatus);
         $parentId = $_GET['parent'] ?? 0;
-        header("Location: /Task-Tracker/public/tasks/view/$parentId"); exit();
+        header("Location: " . URL_ROOT . "/tasks/view/$parentId"); exit();
     }
 
     /**
@@ -468,7 +468,7 @@ class TaskController {
         $parentId = $_GET['parent'] ?? 0;
         $this->taskModel->deleteSubtask($subtaskId, SessionHelper::get('user_id'));
         SessionHelper::setFlash('success', 'Sub-task deleted.');
-        header("Location: /Task-Tracker/public/tasks/view/$parentId"); exit();
+        header("Location: " . URL_ROOT . "/tasks/view/$parentId"); exit();
     }
 
     // ─── Gantt Chart ─────────────────────────────────────────────────

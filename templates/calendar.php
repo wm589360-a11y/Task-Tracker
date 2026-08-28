@@ -32,12 +32,12 @@ $priorityColors = [
 <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
     <h2 class="h3 mb-0"><i class="bi bi-calendar3 text-primary me-2"></i><?php echo $monthName; ?></h2>
     <div class="d-flex gap-2">
-        <a href="/Task-Tracker/public/calendar?month=<?php echo $prevMonth; ?>&year=<?php echo $prevYear; ?>"
+        <a href="<?= URL_ROOT ?>/calendar?month=<?php echo $prevMonth; ?>&year=<?php echo $prevYear; ?>"
            class="btn btn-outline-secondary btn-sm"><i class="bi bi-chevron-left"></i></a>
-        <a href="/Task-Tracker/public/calendar" class="btn btn-outline-primary btn-sm">Today</a>
-        <a href="/Task-Tracker/public/calendar?month=<?php echo $nextMonth; ?>&year=<?php echo $nextYear; ?>"
+        <a href="<?= URL_ROOT ?>/calendar" class="btn btn-outline-primary btn-sm">Today</a>
+        <a href="<?= URL_ROOT ?>/calendar?month=<?php echo $nextMonth; ?>&year=<?php echo $nextYear; ?>"
            class="btn btn-outline-secondary btn-sm"><i class="bi bi-chevron-right"></i></a>
-        <a href="/Task-Tracker/public/tasks/create" class="btn btn-primary btn-sm">
+        <a href="<?= URL_ROOT ?>/tasks/create" class="btn btn-primary btn-sm">
             <i class="bi bi-plus-lg me-1"></i>New Task
         </a>
     </div>
@@ -81,7 +81,7 @@ $priorityColors = [
             echo '</div>';
             foreach($dayTasks as $t) {
                 $pc = $priorityColors[$t['priority']] ?? 'bg-secondary';
-                echo '<a href="/Task-Tracker/public/tasks/view/' . $t['id'] . '" class="badge ' . $pc . ' d-block text-truncate mb-1 text-decoration-none" style="font-size:.65rem;max-width:100%;" title="' . htmlspecialchars($t['title']) . '">' . htmlspecialchars($t['title']) . '</a>';
+                echo '<a href="<?= URL_ROOT ?>/tasks/view/' . $t['id'] . '" class="badge ' . $pc . ' d-block text-truncate mb-1 text-decoration-none" style="font-size:.65rem;max-width:100%;" title="' . htmlspecialchars($t['title']) . '">' . htmlspecialchars($t['title']) . '</a>';
             }
             echo '</div>';
             $cell++;
@@ -110,7 +110,7 @@ $priorityColors = [
                 $pc = $priorityColors[$t['priority']] ?? 'bg-secondary';
                 $done = $t['status'] === 'Completed';
             ?>
-            <a href="/Task-Tracker/public/tasks/view/<?php echo $t['id']; ?>"
+            <a href="<?= URL_ROOT ?>/tasks/view/<?php echo $t['id']; ?>"
                class="list-group-item list-group-item-action border-0 py-2 px-0 d-flex align-items-center gap-3 <?php echo $done ? 'opacity-50' : ''; ?>">
                 <i class="bi <?php echo $done ? 'bi-check-circle-fill text-success' : 'bi-circle text-muted'; ?>"></i>
                 <span class="<?php echo $done ? 'text-decoration-line-through' : ''; ?> flex-fill">
@@ -127,7 +127,7 @@ $priorityColors = [
 <div class="text-center py-5 text-muted">
     <i class="bi bi-calendar-x display-3 opacity-25"></i>
     <p class="mt-3">No tasks due in <?php echo $monthName; ?>.</p>
-    <a href="/Task-Tracker/public/tasks/create" class="btn btn-primary">Create a Task</a>
+    <a href="<?= URL_ROOT ?>/tasks/create" class="btn btn-primary">Create a Task</a>
 </div>
 <?php endif; ?>
 

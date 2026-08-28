@@ -2,7 +2,7 @@
     <div class="col-12">
         <div class="card shadow-sm">
             <div class="card-body">
-                <form method="GET" action="/Task-Tracker/public/time/reports" class="row g-3 align-items-end">
+                <form method="GET" action="<?= URL_ROOT ?>/time/reports" class="row g-3 align-items-end">
                     <div class="col-md-3">
                         <label class="form-label">Start Date</label>
                         <input type="date" name="start_date" class="form-control" value="<?php echo htmlspecialchars($_GET['start_date'] ?? date('Y-m-01')); ?>">
@@ -127,7 +127,7 @@
                                         <?php endif; ?>
                                         <td>
                                             <?php if ($row['task_title']): ?>
-                                                <a href="/Task-Tracker/public/tasks/view/<?php echo $row['task_id']; ?>">
+                                                <a href="<?= URL_ROOT ?>/tasks/view/<?php echo $row['task_id']; ?>">
                                                     <?php echo htmlspecialchars($row['task_title']); ?>
                                                 </a>
                                             <?php else: ?>

@@ -40,7 +40,7 @@ ob_start();
                                 <td class="fw-bold">$<?php echo number_format($expense['amount'], 2); ?></td>
                                 <td>
                                     <?php if ($expense['receipt_path']): ?>
-                                        <a href="/Task-Tracker/public<?php echo $expense['receipt_path']; ?>" target="_blank" class="btn btn-sm btn-outline-info">
+                                        <a href="<?= URL_ROOT ?><?php echo $expense['receipt_path']; ?>" target="_blank" class="btn btn-sm btn-outline-info">
                                             <i class="bi bi-file-earmark-text"></i> View
                                         </a>
                                     <?php else: ?>
@@ -49,12 +49,12 @@ ob_start();
                                 </td>
                                 <td>
                                     <div class="d-flex gap-2">
-                                        <form method="POST" action="/Task-Tracker/public/expenses/approve/<?php echo $expense['id']; ?>">
+                                        <form method="POST" action="<?= URL_ROOT ?>/expenses/approve/<?php echo $expense['id']; ?>">
                                             <button type="submit" class="btn btn-sm btn-success">
                                                 <i class="bi bi-check-lg"></i> Approve
                                             </button>
                                         </form>
-                                        <form method="POST" action="/Task-Tracker/public/expenses/reject/<?php echo $expense['id']; ?>" onsubmit="return confirm('Are you sure you want to reject this expense?');">
+                                        <form method="POST" action="<?= URL_ROOT ?>/expenses/reject/<?php echo $expense['id']; ?>" onsubmit="return confirm('Are you sure you want to reject this expense?');">
                                             <button type="submit" class="btn btn-sm btn-danger">
                                                 <i class="bi bi-x-lg"></i> Reject
                                             </button>

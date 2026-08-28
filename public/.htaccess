@@ -1,5 +1,4 @@
 RewriteEngine On
-RewriteBase /Task-Tracker/public/
 
 # Block access to log files and debug/test scripts
 <FilesMatch "^(debug\.log|test_db\.php|test_http\.php|check_db\.php|hello\.php|create_user\.php|check_structure\.\..php)$">

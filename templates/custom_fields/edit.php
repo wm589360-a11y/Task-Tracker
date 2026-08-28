@@ -2,7 +2,7 @@
 $pageTitle  = 'Edit Custom Field - Advanced Task Tracker';
 $isEdit     = true;
 // $field and $optionsRaw are injected by the controller
-$formAction = '/Task-Tracker/public/custom-fields/edit/' . $field['id'];
+$formAction = URL_ROOT . '/custom-fields/edit/' . $field['id'];
 ob_start();
 include __DIR__ . '/_form.php';
 $content = ob_get_clean();

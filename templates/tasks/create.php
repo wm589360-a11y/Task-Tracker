@@ -9,14 +9,14 @@ ob_start();
             <h2 class="h3 mb-0 text-gray-800">
                 <i class="bi bi-plus-circle text-primary me-2"></i>Create New Task
             </h2>
-            <a href="/Task-Tracker/public/dashboard" class="btn btn-outline-secondary btn-sm">
+            <a href="<?= URL_ROOT ?>/dashboard" class="btn btn-outline-secondary btn-sm">
                 <i class="bi bi-arrow-left"></i> Back to Dashboard
             </a>
         </div>
 
         <div class="card shadow-sm border-0">
             <div class="card-body p-4">
-                <form action="/Task-Tracker/public/tasks/create" method="POST">
+                <form action="<?= URL_ROOT ?>/tasks/create" method="POST">
                     <!-- Title -->
                     <div class="mb-4">
                         <label for="title" class="form-label fw-bold">Task Title <span class="text-danger">*</span></label>

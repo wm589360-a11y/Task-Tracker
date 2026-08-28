@@ -10,7 +10,7 @@ ob_start();
                     <h4 class="mb-0"><i class="bi bi-person-plus"></i> Create Account</h4>
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="/Task-Tracker/public/register" id="registerForm" novalidate>
+                    <form method="POST" action="<?= URL_ROOT ?>/register" id="registerForm" novalidate>
                         <div class="mb-3">
                             <label for="name" class="form-label">Full Name</label>
                             <input type="text" class="form-control" id="name" name="name"
@@ -58,7 +58,7 @@ ob_start();
                     </form>
                 </div>
                 <div class="card-footer text-center">
-                    Already have an account? <a href="/Task-Tracker/public/login">Login here</a>
+                    Already have an account? <a href="<?= URL_ROOT ?>/login">Login here</a>
                 </div>
             </div>
         </div>

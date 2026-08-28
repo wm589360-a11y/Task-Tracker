@@ -45,7 +45,7 @@
                                         </td>
                                         <td>
                                             <?php if ($entry['task_title']): ?>
-                                                <a href="/Task-Tracker/public/tasks/view/<?php echo $entry['task_id']; ?>" class="d-block mb-1">
+                                                <a href="<?= URL_ROOT ?>/tasks/view/<?php echo $entry['task_id']; ?>" class="d-block mb-1">
                                                     <?php echo htmlspecialchars($entry['task_title']); ?>
                                                 </a>
                                             <?php endif; ?>
@@ -54,10 +54,10 @@
                                             <?php endif; ?>
                                         </td>
                                         <td>
-                                            <a href="/Task-Tracker/public/time/approve/<?php echo $entry['id']; ?>" class="btn btn-sm btn-success">
+                                            <a href="<?= URL_ROOT ?>/time/approve/<?php echo $entry['id']; ?>" class="btn btn-sm btn-success">
                                                 <i class="bi bi-check-lg"></i> Approve
                                             </a>
-                                            <a href="/Task-Tracker/public/time/reject/<?php echo $entry['id']; ?>" class="btn btn-sm btn-danger ms-1">
+                                            <a href="<?= URL_ROOT ?>/time/reject/<?php echo $entry['id']; ?>" class="btn btn-sm btn-danger ms-1">
                                                 <i class="bi bi-x-lg"></i> Reject
                                             </a>
                                         </td>

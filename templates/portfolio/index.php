@@ -105,7 +105,7 @@
 <!-- Filters & Search Toolbar -->
 <div class="card shadow-sm mb-4 border-0">
     <div class="card-body p-3">
-        <form method="GET" action="/Task-Tracker/public/portfolio" class="row g-2 align-items-center">
+        <form method="GET" action="<?= URL_ROOT ?>/portfolio" class="row g-2 align-items-center">
             <div class="col-12 col-md-4">
                 <div class="input-group">
                     <span class="input-group-text bg-transparent border-end-0"><i class="bi bi-search text-muted"></i></span>
@@ -134,7 +134,7 @@
             </div>
 
             <div class="col-12 col-md-2 text-end">
-                <a href="/Task-Tracker/public/portfolio" class="btn btn-outline-secondary w-100">Reset</a>
+                <a href="<?= URL_ROOT ?>/portfolio" class="btn btn-outline-secondary w-100">Reset</a>
             </div>
         </form>
     </div>
@@ -199,7 +199,7 @@
 
                         <!-- Project Title & Description -->
                         <h5 class="fw-bold mb-1">
-                            <a href="/Task-Tracker/public/portfolio/view/<?php echo $prj['id']; ?>" class="text-decoration-none text-dark">
+                            <a href="<?= URL_ROOT ?>/portfolio/view/<?php echo $prj['id']; ?>" class="text-decoration-none text-dark">
                                 <?php echo htmlspecialchars($prj['name']); ?>
                             </a>
                         </h5>
@@ -265,13 +265,13 @@
                         </div>
 
                         <div class="d-flex gap-1">
-                            <a href="/Task-Tracker/public/portfolio/view/<?php echo $prj['id']; ?>" class="btn btn-sm btn-outline-primary" title="View Project Breakdown">
+                            <a href="<?= URL_ROOT ?>/portfolio/view/<?php echo $prj['id']; ?>" class="btn btn-sm btn-outline-primary" title="View Project Breakdown">
                                 <i class="bi bi-eye"></i> Details
                             </a>
                             <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editProjectModal<?php echo $prj['id']; ?>" title="Edit Project">
                                 <i class="bi bi-pencil"></i>
                             </button>
-                            <a href="/Task-Tracker/public/portfolio/delete/<?php echo $prj['id']; ?>" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure you want to delete this project?')" title="Delete Project">
+                            <a href="<?= URL_ROOT ?>/portfolio/delete/<?php echo $prj['id']; ?>" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure you want to delete this project?')" title="Delete Project">
                                 <i class="bi bi-trash"></i>
                             </a>
                         </div>
@@ -283,7 +283,7 @@
             <div class="modal fade" id="editProjectModal<?php echo $prj['id']; ?>" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
-                        <form method="POST" action="/Task-Tracker/public/portfolio/edit/<?php echo $prj['id']; ?>">
+                        <form method="POST" action="<?= URL_ROOT ?>/portfolio/edit/<?php echo $prj['id']; ?>">
                             <div class="modal-header bg-light">
                                 <h5 class="modal-header-title fw-bold"><i class="bi bi-pencil-square me-2"></i>Edit Project: <?php echo htmlspecialchars($prj['name']); ?></h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
@@ -386,7 +386,7 @@
 <div class="modal fade" id="createProjectModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <form method="POST" action="/Task-Tracker/public/portfolio/create">
+            <form method="POST" action="<?= URL_ROOT ?>/portfolio/create">
                 <div class="modal-header bg-primary text-white">
                     <h5 class="modal-header-title fw-bold"><i class="bi bi-briefcase me-2"></i>Create New Project</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
@@ -475,4 +475,4 @@
     </div>
 </div>
 
-<script src="/Task-Tracker/public/assets/js/portfolio.js"></script>
+<script src="<?= URL_ROOT ?>/assets/js/portfolio.js"></script>

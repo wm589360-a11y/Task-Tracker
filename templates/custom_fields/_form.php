@@ -42,7 +42,7 @@ $fieldType = $field['field_type'] ?? 'text';
                 <i class="bi bi-<?php echo $isEdit ? 'pencil-square' : 'plus-circle'; ?> text-primary me-2"></i>
                 <?php echo $isEdit ? 'Edit Custom Field' : 'Create Custom Field'; ?>
             </h2>
-            <a href="/Task-Tracker/public/custom-fields" class="btn btn-outline-secondary btn-sm">
+            <a href="<?= URL_ROOT ?>/custom-fields" class="btn btn-outline-secondary btn-sm">
                 <i class="bi bi-arrow-left me-1"></i>Back
             </a>
         </div>
@@ -162,7 +162,7 @@ $fieldType = $field['field_type'] ?? 'text';
                         <button type="submit" class="btn btn-primary btn-lg flex-fill fw-semibold">
                             <i class="bi bi-save me-2"></i><?php echo $isEdit ? 'Save Changes' : 'Create Field'; ?>
                         </button>
-                        <a href="/Task-Tracker/public/custom-fields" class="btn btn-outline-secondary btn-lg px-4">Cancel</a>
+                        <a href="<?= URL_ROOT ?>/custom-fields" class="btn btn-outline-secondary btn-lg px-4">Cancel</a>
                     </div>
                 </form>
             </div>

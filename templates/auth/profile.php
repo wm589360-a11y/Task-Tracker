@@ -30,7 +30,7 @@ $initial = strtoupper(substr($user['name'] ?? 'U', 0, 1));
                         <h5 class="fw-bold mb-4">
                             <i class="bi bi-person-gear text-primary me-2"></i>Edit Profile
                         </h5>
-                        <form method="POST" action="/Task-Tracker/public/profile">
+                        <form method="POST" action="<?= URL_ROOT ?>/profile">
                             <input type="hidden" name="action_type" value="update_profile">
                             <div class="mb-3">
                                 <label class="form-label fw-semibold text-muted small">Full Name</label>
@@ -63,7 +63,7 @@ $initial = strtoupper(substr($user['name'] ?? 'U', 0, 1));
                         <h5 class="fw-bold mb-4">
                             <i class="bi bi-shield-lock text-danger me-2"></i>Change Password
                         </h5>
-                        <form method="POST" action="/Task-Tracker/public/profile">
+                        <form method="POST" action="<?= URL_ROOT ?>/profile">
                             <input type="hidden" name="action_type" value="change_password">
                             <div class="mb-3">
                                 <label class="form-label fw-semibold text-muted small">Current Password</label>
