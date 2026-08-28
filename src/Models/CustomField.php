@@ -107,7 +107,7 @@ class CustomField {
         $stmt = $this->db->prepare(
             "INSERT INTO custom_field_values (task_id, field_id, value)
              VALUES (:task_id, :field_id, :value)
-             ON DUPLICATE KEY UPDATE value = :value2, updated_at = NOW()"
+             ON CONFLICT (task_id, field_id) DO UPDATE SET value = EXCLUDED.value, updated_at = CURRENT_TIMESTAMP"
         );
         foreach ($fieldDefinitions as $field) {
             $fieldId  = $field['id'];
@@ -122,8 +122,7 @@ class CustomField {
             $stmt->execute([
                 ':task_id'  => $taskId,
                 ':field_id' => $fieldId,
-                ':value'    => $value !== '' ? $value : null,
-                ':value2'   => $value !== '' ? $value : null,
+                ':value'    => $value !== '' ? $value : null
             ]);
         }
     }

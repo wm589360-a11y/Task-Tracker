@@ -32,7 +32,7 @@ class Task {
         $stmt->execute([':user_id' => $userId]);
         $stats['in_progress_tasks'] = $stmt->fetch()['total'];
 
-        $sql = "SELECT COUNT(*) as total FROM tasks WHERE created_by = :user_id AND status != 'Completed' AND due_date < CURDATE() AND deleted_at IS NULL";
+        $sql = "SELECT COUNT(*) as total FROM tasks WHERE created_by = :user_id AND status != 'Completed' AND due_date < CURRENT_DATE AND deleted_at IS NULL";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([':user_id' => $userId]);
         $stats['overdue_tasks'] = $stmt->fetch()['total'];
@@ -221,7 +221,7 @@ class Task {
         $sql = "SELECT id, title, due_date FROM tasks
                 WHERE created_by = :user_id
                 AND status != 'Completed'
-                AND due_date < CURDATE()
+                AND due_date < CURRENT_DATE
                 AND deleted_at IS NULL
                 ORDER BY due_date ASC LIMIT 5";
         $stmt = $this->db->prepare($sql);
@@ -231,14 +231,14 @@ class Task {
 
     // ─── Analytics ────────────────────────────────────────────────────────
     public function getMonthlyStats($userId) {
-        $sql = "SELECT
-                    DATE_FORMAT(created_at, '%b %Y') as month,
-                    COUNT(*) as total,
-                    SUM(CASE WHEN status = 'Completed' THEN 1 ELSE 0 END) as completed
-                FROM tasks
-                WHERE created_by = :user_id AND deleted_at IS NULL
-                AND created_at >= DATE_SUB(NOW(), INTERVAL 6 MONTH)
-                GROUP BY DATE_FORMAT(created_at, '%Y-%m')
+        $sql = "SELECT 
+                    TO_CHAR(created_at, 'Mon YYYY') as month, 
+                    COUNT(*) as total, 
+                    SUM(CASE WHEN status = 'Completed' THEN 1 ELSE 0 END) as completed 
+                FROM tasks 
+                WHERE created_by = :user_id AND deleted_at IS NULL 
+                AND created_at >= CURRENT_TIMESTAMP - INTERVAL '6 months' 
+                GROUP BY TO_CHAR(created_at, 'YYYY-MM'), TO_CHAR(created_at, 'Mon YYYY') 
                 ORDER BY MIN(created_at) ASC";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([':user_id' => $userId]);
@@ -261,12 +261,12 @@ class Task {
 
     // ─── Calendar View ────────────────────────────────────────────────────
     public function getTasksForMonth($userId, $month, $year) {
-        $sql = "SELECT id, title, due_date, priority, status
-                FROM tasks
-                WHERE created_by = :user_id
-                AND deleted_at IS NULL
-                AND MONTH(due_date) = :month
-                AND YEAR(due_date) = :year";
+        $sql = "SELECT id, title, due_date, priority, status 
+                FROM tasks 
+                WHERE created_by = :user_id 
+                AND deleted_at IS NULL 
+                AND EXTRACT(MONTH FROM due_date) = :month 
+                AND EXTRACT(YEAR FROM due_date) = :year";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([':user_id' => $userId, ':month' => $month, ':year' => $year]);
         return $stmt->fetchAll();
@@ -342,7 +342,7 @@ class Task {
     }
 
     public function deleteSubtask($subtaskId, $userId) {
-        $stmt = $this->db->prepare("UPDATE tasks SET deleted_at = NOW() WHERE id = :id AND created_by = :user_id");
+        $stmt = $this->db->prepare("UPDATE tasks SET deleted_at = CURRENT_TIMESTAMP WHERE id = :id AND created_by = :user_id");
         return $stmt->execute([':id' => $subtaskId, ':user_id' => $userId]);
     }
 

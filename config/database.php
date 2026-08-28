@@ -20,12 +20,13 @@ class Database {
     private function __construct() {
         try {
             $host = getenv('DB_HOST') ?: 'localhost';
-            $dbname = getenv('DB_NAME') ?: 'task1_tracker';
-            $user = getenv('DB_USER') ?: 'root';
+            $dbname = getenv('DB_DATABASE') ?: 'postgres';
+            $user = getenv('DB_USER') ?: 'postgres';
             $pass = getenv('DB_PASSWORD') ?: '';
+            $port = getenv('DB_PORT') ?: '5432';
 
             $this->connection = new PDO(
-                "mysql:host=$host;dbname=$dbname;charset=utf8mb4",
+                "pgsql:host=$host;port=$port;dbname=$dbname",
                 $user,
                 $pass,
                 [

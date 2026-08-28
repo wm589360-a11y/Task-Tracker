@@ -49,7 +49,7 @@ class Report {
                     SUM(CASE WHEN t.status = 'Completed' THEN 1 ELSE 0 END) AS completed_tasks,
                     SUM(CASE WHEN t.status = 'Pending' THEN 1 ELSE 0 END) AS pending_tasks,
                     SUM(CASE WHEN t.status = 'In Progress' THEN 1 ELSE 0 END) AS in_progress_tasks,
-                    SUM(CASE WHEN t.status != 'Completed' AND t.due_date IS NOT NULL AND t.due_date < CURDATE() THEN 1 ELSE 0 END) AS overdue_tasks,
+                    SUM(CASE WHEN t.status != 'Completed' AND t.due_date IS NOT NULL AND t.due_date < CURRENT_DATE THEN 1 ELSE 0 END) AS overdue_tasks,
                     ROUND(COALESCE(SUM(te.duration_minutes), 0) / 60, 2) AS total_hours
                 FROM tasks t
                 LEFT JOIN categories c ON t.category_id = c.id

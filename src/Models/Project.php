@@ -20,7 +20,7 @@ class Project {
                        SUM(CASE WHEN t.status = 'Completed' THEN 1 ELSE 0 END) as completed_tasks,
                        SUM(CASE WHEN t.status = 'In Progress' THEN 1 ELSE 0 END) as in_progress_tasks,
                        SUM(CASE WHEN t.status = 'Pending' THEN 1 ELSE 0 END) as pending_tasks,
-                       SUM(CASE WHEN t.due_date < CURDATE() AND t.status != 'Completed' THEN 1 ELSE 0 END) as overdue_tasks
+                       SUM(CASE WHEN t.due_date < CURRENT_DATE AND t.status != 'Completed' THEN 1 ELSE 0 END) as overdue_tasks
                 FROM projects p
                 LEFT JOIN users u ON p.owner_id = u.id
                 LEFT JOIN categories c ON p.category_id = c.id
@@ -76,7 +76,7 @@ class Project {
                        SUM(CASE WHEN t.status = 'Completed' THEN 1 ELSE 0 END) as completed_tasks,
                        SUM(CASE WHEN t.status = 'In Progress' THEN 1 ELSE 0 END) as in_progress_tasks,
                        SUM(CASE WHEN t.status = 'Pending' THEN 1 ELSE 0 END) as pending_tasks,
-                       SUM(CASE WHEN t.due_date < CURDATE() AND t.status != 'Completed' THEN 1 ELSE 0 END) as overdue_tasks
+                       SUM(CASE WHEN t.due_date < CURRENT_DATE AND t.status != 'Completed' THEN 1 ELSE 0 END) as overdue_tasks
                 FROM projects p
                 LEFT JOIN users u ON p.owner_id = u.id
                 LEFT JOIN categories c ON p.category_id = c.id

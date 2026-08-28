@@ -94,10 +94,10 @@ class Expense {
     }
 
     public function getMonthlyTotals($year) {
-        $sql = "SELECT MONTH(expense_date) as month, SUM(amount) as total 
+        $sql = "SELECT EXTRACT(MONTH FROM expense_date) as month, SUM(amount) as total 
                 FROM expenses 
-                WHERE status = 'approved' AND YEAR(expense_date) = :year 
-                GROUP BY MONTH(expense_date) 
+                WHERE status = 'approved' AND EXTRACT(YEAR FROM expense_date) = :year 
+                GROUP BY EXTRACT(MONTH FROM expense_date) 
                 ORDER BY month ASC";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([':year' => $year]);

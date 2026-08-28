@@ -28,7 +28,7 @@ class TimeEntry {
         }
 
         $sql = "INSERT INTO time_entries (user_id, task_id, clock_in, notes) 
-                VALUES (:user_id, :task_id, NOW(), :notes)";
+                VALUES (:user_id, :task_id, CURRENT_TIMESTAMP, :notes)";
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([
             ':user_id' => $userId,
@@ -40,8 +40,8 @@ class TimeEntry {
     public function punchOut($userId, $entryId) {
         // Calculate duration and update
         $sql = "UPDATE time_entries 
-                SET clock_out = NOW(), 
-                    duration_minutes = TIMESTAMPDIFF(MINUTE, clock_in, NOW())
+                SET clock_out = CURRENT_TIMESTAMP, 
+                    duration_minutes = EXTRACT(EPOCH FROM (CURRENT_TIMESTAMP - clock_in))/60
                 WHERE id = :id AND user_id = :user_id AND clock_out IS NULL";
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([
