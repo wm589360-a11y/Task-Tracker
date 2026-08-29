@@ -3,7 +3,7 @@ $pageTitle = 'Calendar - Advanced Task Tracker';
 ob_start();
 
 // Build calendar data
-$daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+$daysInMonth = (int)date('t', mktime(0,0,0,$month,1,$year));
 $firstDay    = (int)date('w', mktime(0,0,0,$month,1,$year)); // 0=Sun
 $today       = date('Y-m-d');
 
