@@ -4,9 +4,6 @@ FROM php:8.2-apache
 RUN apt-get update && apt-get install -y libpq-dev \
     && docker-php-ext-install pdo pdo_pgsql pgsql
 
-# Fix Apache MPM conflict by explicitly disabling event/worker and enabling prefork
-RUN a2dismod mpm_event mpm_worker || true && a2enmod mpm_prefork
-
 # Enable Apache mod_rewrite for URL routing
 RUN a2enmod rewrite
 
@@ -22,5 +19,10 @@ COPY . /var/www/html/
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html
 
-# Expose port 80 for Render
+# Expose port 80 for Render/Railway
 EXPOSE 80
+
+# Setup custom entrypoint to fix MPM conflicts at runtime
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+ENTRYPOINT ["docker-entrypoint.sh"]
