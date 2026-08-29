@@ -379,7 +379,7 @@ class Task {
     // ─── Gantt Chart ──────────────────────────────────────────────────────
     public function getGanttData($userId) {
         $sql = "SELECT t.id, t.title as name, t.start_date, t.due_date, t.status,
-                       GROUP_CONCAT(td.depends_on_task_id) as dependencies
+                       STRING_AGG(td.depends_on_task_id::text, ',') as dependencies
                 FROM tasks t
                 LEFT JOIN task_dependencies td ON t.id = td.task_id
                 WHERE t.created_by = :user_id AND t.deleted_at IS NULL
