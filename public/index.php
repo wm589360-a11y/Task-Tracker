@@ -12,6 +12,11 @@ if (!$appUrl) {
     $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
     $baseDir = str_replace($_SERVER['DOCUMENT_ROOT'], '', str_replace('\\', '/', BASE_PATH . '/public'));
     $appUrl = $protocol . $host . $baseDir;
+} else {
+    // If the user forgot to add https:// in the environment variable, add it automatically
+    if (strpos($appUrl, 'http://') !== 0 && strpos($appUrl, 'https://') !== 0) {
+        $appUrl = 'https://' . $appUrl;
+    }
 }
 define('URL_ROOT', rtrim($appUrl, '/'));
 
