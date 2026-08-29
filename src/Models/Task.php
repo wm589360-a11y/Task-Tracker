@@ -231,15 +231,28 @@ class Task {
 
     // ─── Analytics ────────────────────────────────────────────────────────
     public function getMonthlyStats($userId) {
-        $sql = "SELECT 
-                    TO_CHAR(created_at, 'Mon YYYY') as month, 
-                    COUNT(*) as total, 
-                    SUM(CASE WHEN status = 'Completed' THEN 1 ELSE 0 END) as completed 
-                FROM tasks 
-                WHERE created_by = :user_id AND deleted_at IS NULL 
-                AND created_at >= CURRENT_TIMESTAMP - INTERVAL '6 months' 
-                GROUP BY TO_CHAR(created_at, 'YYYY-MM'), TO_CHAR(created_at, 'Mon YYYY') 
-                ORDER BY MIN(created_at) ASC";
+        $driver = $this->db->getAttribute(PDO::ATTR_DRIVER_NAME);
+        if ($driver === 'mysql') {
+            $sql = "SELECT 
+                        DATE_FORMAT(created_at, '%b %Y') as month, 
+                        COUNT(*) as total, 
+                        SUM(CASE WHEN status = 'Completed' THEN 1 ELSE 0 END) as completed 
+                    FROM tasks 
+                    WHERE created_by = :user_id AND deleted_at IS NULL 
+                    AND created_at >= NOW() - INTERVAL 6 MONTH 
+                    GROUP BY DATE_FORMAT(created_at, '%Y-%m'), DATE_FORMAT(created_at, '%b %Y') 
+                    ORDER BY MIN(created_at) ASC";
+        } else {
+            $sql = "SELECT 
+                        TO_CHAR(created_at, 'Mon YYYY') as month, 
+                        COUNT(*) as total, 
+                        SUM(CASE WHEN status = 'Completed' THEN 1 ELSE 0 END) as completed 
+                    FROM tasks 
+                    WHERE created_by = :user_id AND deleted_at IS NULL 
+                    AND created_at >= CURRENT_TIMESTAMP - INTERVAL '6 months' 
+                    GROUP BY TO_CHAR(created_at, 'YYYY-MM'), TO_CHAR(created_at, 'Mon YYYY') 
+                    ORDER BY MIN(created_at) ASC";
+        }
         $stmt = $this->db->prepare($sql);
         $stmt->execute([':user_id' => $userId]);
         return $stmt->fetchAll();
@@ -301,7 +314,12 @@ class Task {
         } else {
             $tagId = $tag['id'];
         }
-        $stmt = $this->db->prepare("INSERT IGNORE INTO task_tags (task_id, tag_id) VALUES (:task_id, :tag_id)");
+        $driver = $this->db->getAttribute(PDO::ATTR_DRIVER_NAME);
+        if ($driver === 'pgsql') {
+            $stmt = $this->db->prepare("INSERT INTO task_tags (task_id, tag_id) VALUES (:task_id, :tag_id) ON CONFLICT DO NOTHING");
+        } else {
+            $stmt = $this->db->prepare("INSERT IGNORE INTO task_tags (task_id, tag_id) VALUES (:task_id, :tag_id)");
+        }
         return $stmt->execute([':task_id' => $taskId, ':tag_id' => $tagId]);
     }
 
@@ -378,8 +396,13 @@ class Task {
 
     // ─── Gantt Chart ──────────────────────────────────────────────────────
     public function getGanttData($userId) {
+        $driver = $this->db->getAttribute(PDO::ATTR_DRIVER_NAME);
+        $depCol = ($driver === 'mysql') 
+                    ? "GROUP_CONCAT(td.depends_on_task_id SEPARATOR ',') as dependencies" 
+                    : "STRING_AGG(td.depends_on_task_id::text, ',') as dependencies";
+
         $sql = "SELECT t.id, t.title as name, t.start_date, t.due_date, t.status,
-                       STRING_AGG(td.depends_on_task_id::text, ',') as dependencies
+                       $depCol
                 FROM tasks t
                 LEFT JOIN task_dependencies td ON t.id = td.task_id
                 WHERE t.created_by = :user_id AND t.deleted_at IS NULL
@@ -434,7 +457,12 @@ class Task {
             $stmt->execute([':task_id' => $taskId]);
             
             if (!empty($dependencyIds)) {
-                $stmt = $this->db->prepare("INSERT IGNORE INTO task_dependencies (task_id, depends_on_task_id) VALUES (:task_id, :depends_on)");
+                $driver = $this->db->getAttribute(PDO::ATTR_DRIVER_NAME);
+                if ($driver === 'pgsql') {
+                    $stmt = $this->db->prepare("INSERT INTO task_dependencies (task_id, depends_on_task_id) VALUES (:task_id, :depends_on) ON CONFLICT DO NOTHING");
+                } else {
+                    $stmt = $this->db->prepare("INSERT IGNORE INTO task_dependencies (task_id, depends_on_task_id) VALUES (:task_id, :depends_on)");
+                }
                 foreach ($dependencyIds as $depId) {
                     $stmt->execute([
                         ':task_id' => $taskId,
