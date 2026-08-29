@@ -19,11 +19,11 @@ class Database {
 
     private function __construct() {
         try {
-            $host = getenv('DB_HOST') ?: 'localhost';
-            $dbname = getenv('DB_DATABASE') ?: 'postgres';
-            $user = getenv('DB_USER') ?: 'postgres';
-            $pass = getenv('DB_PASSWORD') ?: '';
-            $port = getenv('DB_PORT') ?: '5432';
+            $host = getenv('DB_HOST') ?: ($_ENV['DB_HOST'] ?? ($_SERVER['DB_HOST'] ?? 'localhost'));
+            $dbname = getenv('DB_DATABASE') ?: ($_ENV['DB_DATABASE'] ?? ($_SERVER['DB_DATABASE'] ?? 'postgres'));
+            $user = getenv('DB_USER') ?: ($_ENV['DB_USER'] ?? ($_SERVER['DB_USER'] ?? 'postgres'));
+            $pass = getenv('DB_PASSWORD') ?: ($_ENV['DB_PASSWORD'] ?? ($_SERVER['DB_PASSWORD'] ?? ''));
+            $port = getenv('DB_PORT') ?: ($_ENV['DB_PORT'] ?? ($_SERVER['DB_PORT'] ?? '5432'));
 
             $this->connection = new PDO(
                 "pgsql:host=$host;port=$port;dbname=$dbname",
